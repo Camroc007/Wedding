@@ -242,7 +242,7 @@ export default function App() {
                     <Cross className="w-6 h-6 text-orange-500" />
                     <HandHeart className="w-8 h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-3xl font-thin text-gray-800 mb-4">Week of Mission</h3>
+                  <h3 className="text-3xl font-thin text-gray-800 mb-4">Mission Work</h3>
                   <p className="text-orange-700 text-lg">Before our wedding celebration</p>
                 </div>
 
