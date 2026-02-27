@@ -264,7 +264,7 @@ export default function App() {
 
                 <div className="bg-orange-50 rounded-2xl p-8 text-center">
                   <p className="text-gray-700 leading-relaxed text-lg mb-4">
-                    <strong>28th May – 9th June 2027</strong> — Experience the true meaning of love through service.
+                    <strong>28th May – 6th June 2027</strong> — Experience the true meaning of love through service.
                     Optional participation for wedding guests who feel called to join this mission of mercy.
                   </p>
                   <p className="text-orange-800 italic">
@@ -406,7 +406,7 @@ export default function App() {
                 <div className="space-y-8 text-gray-700">
                   {[
                     ['Airport', 'Kigali International Airport'],
-                    ['Dates', '28th May (departure from home country) – 9th June (arrival back home)'],
+                    ['Dates', '28th May (departure from home country) – 6th June (Departure from Rwanda)'],
                     ['RSVP', 'Please RSVP by 1st August 2026. Guests will be added to a WhatsApp chat to co-ordinate flights, itinerary and accommodation.'],
                   ].map(([label, value]) => (
                     <div key={label} className="flex items-start space-x-6">
