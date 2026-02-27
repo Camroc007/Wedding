@@ -330,7 +330,7 @@ export default function App() {
                     <Cross className="w-6 h-6 text-orange-500 float" />
                     <HandHeart className="w-8 h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-3xl font-thin text-gray-800 mb-4">Week of Mission</h3>
+                  <h3 className="text-3xl font-thin text-gray-800 mb-4">Mission Work</h3>
                   <p className="text-orange-700 text-lg">Before our wedding celebration</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8 mb-10">
@@ -358,7 +358,7 @@ export default function App() {
                 <Reveal delay={400}>
                   <div className="bg-orange-50 rounded-2xl p-8 text-center">
                     <p className="text-gray-700 leading-relaxed text-lg mb-4">
-                      <strong>28th May – 9th June 2027</strong> — Experience the true meaning of love through service.
+                      <strong>28th May – 6th June 2027</strong> — Experience the true meaning of love through service.
                       Optional participation for wedding guests who feel called to join this mission of mercy.
                     </p>
                     <p className="text-orange-800 italic">
@@ -505,7 +505,7 @@ export default function App() {
                 color: 'amber', title: 'Rwanda',
                 items: [
                   ['Airport', 'Kigali International Airport'],
-                  ['Dates', '28th May (departure) – 9th June (return)'],
+                  ['Dates', '28th May (departure) – 6th June (return)'],
                   ['RSVP', 'Please RSVP by 1st August 2026. Guests added to WhatsApp to co-ordinate flights, itinerary and accommodation.'],
                 ],
                 note: 'Experience the warmth of Rwandan hospitality',
@@ -653,7 +653,7 @@ export default function App() {
             <div className="space-y-6 mt-6">
               <p className="text-3xl text-gray-700 font-thin">Please respond by 1st August 2026</p>
               <p className="text-gray-600 text-xl">Please specify which celebration(s) you will attend</p>
-              <p className="text-gray-600 text-lg">and if you feel called to join our mission week</p>
+              <p className="text-gray-600 text-lg">and if you feel called to join our mission</p>
             </div>
           </Reveal>
 
