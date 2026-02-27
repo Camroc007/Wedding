@@ -77,23 +77,12 @@ const T = {
     rsvpForm: { name: 'Full Name', email: 'Email Address', attending: 'Which celebration(s) will you attend?',
       rwanda: 'Rwanda Ceremony (June 2027)', portugal: 'Portugal Celebration (Summer 2027)',
       mission: 'I would like to join the Mission', dietary: 'Dietary Requirements / Accessibility Needs',
-      guests: 'Names of Guests Attending', guestsPlaceholder: 'e.g. John Smith, Jane Smith',
       prayers: 'Special Prayer Intentions', submit: 'Send RSVP', sending: 'Sending…', sent: 'RSVP Received! God bless you.' },
     footer: 'Multiple cultures, one faith, infinite blessings',
     thanks: 'Muito obrigado · Murakoze cyane · Thank you very much · Go raibh míle maith agat',
     footerQuote: '"The Lord bless you and keep you. The Lord shine his face upon you and be gracious to you. The Lord look upon you kindly and give you peace."',
     footerVerse: '— Numbers 6:24–26',
     footerBlessed: 'We are blessed to share these sacred moments with you!',
-    bibleHero: '"What God has joined together, let no man separate."',
-    bibleHeroRef: '— Matthew 19:6',
-    bibleTransition: '"Love never fails"',
-    bibleTransitionRef: '— 1 Corinthians 13:8',
-    bibleMission: '"Whatever you did for one of the least of these… you did for me."',
-    bibleMissionRef: '— Matthew 25:40',
-    bibleGifts: '"It is more blessed to give than to receive"',
-    bibleGiftsRef: '— Acts 20:35',
-    biblePhoto: '"Be still and know that I am God"',
-    biblePhotoRef: '— Psalm 46:10',
   },
   PT: {
     lang: 'PT', flag: '🇵🇹',
@@ -143,23 +132,12 @@ const T = {
     rsvpForm: { name: 'Nome Completo', email: 'Endereço de Email', attending: 'A que celebração(ões) irá?',
       rwanda: 'Cerimónia no Ruanda (Junho 2027)', portugal: 'Celebração em Portugal (Verão 2027)',
       mission: 'Gostaria de participar na Missão', dietary: 'Requisitos Alimentares / Necessidades de Acessibilidade',
-      guests: 'Nomes dos Convidados que Virão', guestsPlaceholder: 'ex: João Silva, Maria Silva',
       prayers: 'Intenções de Oração Especiais', submit: 'Enviar RSVP', sending: 'A enviar…', sent: 'RSVP Recebido! Deus vos abençoe.' },
     footer: 'Múltiplas culturas, uma fé, bênçãos infinitas',
     thanks: 'Muito obrigado · Murakoze cyane · Thank you · Go raibh míle maith agat',
     footerQuote: '"O Senhor te abençoe e te guarde. O Senhor faça resplandecer o seu rosto sobre ti e tenha misericórdia de ti. O Senhor volte o seu rosto para ti e te dê a paz."',
     footerVerse: '— Números 6:24–26',
     footerBlessed: 'Estamos abençoados por partilhar estes momentos sagrados convosco!',
-    bibleHero: '"O que Deus uniu, o homem não separe."',
-    bibleHeroRef: '— Mateus 19:6',
-    bibleTransition: '"O amor nunca falha"',
-    bibleTransitionRef: '— 1 Coríntios 13:8',
-    bibleMission: '"O que fizestes a um destes meus irmãos mais pequeninos, a mim o fizestes."',
-    bibleMissionRef: '— Mateus 25:40',
-    bibleGifts: '"Há mais felicidade em dar do que em receber"',
-    bibleGiftsRef: '— Actos 20:35',
-    biblePhoto: '"Aquietai-vos e sabei que eu sou Deus"',
-    biblePhotoRef: '— Salmo 46:10',
   },
 };
 
@@ -379,7 +357,7 @@ const WEB3FORMS_KEY = '8ebd7fe2-03a7-4898-ad40-dea3fa2bda0a';
 
 function RSVPForm({ t }) {
   const tf = t.rsvpForm;
-  const [form, setForm] = useState({ name: '', email: '', rwanda: false, portugal: false, mission: false, guests: '', dietary: '', prayers: '' });
+  const [form, setForm] = useState({ name: '', email: '', rwanda: false, portugal: false, mission: false, dietary: '', prayers: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const handle = e => {
@@ -433,11 +411,6 @@ function RSVPForm({ t }) {
             </label>
           ))}
         </div>
-      </div>
-
-      <div>
-        <label className="block text-gray-600 tracking-widest uppercase text-xs mb-2">{tf.guests}</label>
-        <textarea name="guests" value={form.guests} onChange={handle} rows={3} className="rsvp-input resize-none" placeholder={tf.guestsPlaceholder} />
       </div>
 
       <div>
@@ -599,8 +572,8 @@ export default function App() {
           </div>
 
           <div className="hero-quote bg-white/60 backdrop-blur-sm rounded-3xl p-8 max-w-xl mx-auto border border-white/80" style={{ animationDelay: '1s' }}>
-            <p className="text-lg text-gray-700 italic mb-2">{t.bibleHero}</p>
-            <p className="text-sm text-gray-500">{t.bibleHeroRef}</p>
+            <p className="text-lg text-gray-700 italic mb-2">"What God has joined together, let no man separate."</p>
+            <p className="text-sm text-gray-500">— Matthew 19:6</p>
           </div>
 
           <div className="pt-8 float">
@@ -692,7 +665,7 @@ export default function App() {
                 </div>
                 <div className="bg-orange-50 rounded-2xl p-8 text-center">
                   <p className="text-gray-700 leading-relaxed mb-3"><strong>{t.missionDates}</strong> — {t.missionNote}</p>
-                  <p className="text-orange-700 italic text-sm">{t.bibleMission} {t.bibleMissionRef}</p>
+                  <p className="text-orange-700 italic text-sm">"Whatever you did for one of the least of these… you did for me." — Matthew 25:40</p>
                 </div>
               </div>
             </Reveal>
@@ -705,7 +678,7 @@ export default function App() {
         <div className="max-w-3xl mx-auto text-center space-y-10">
           <Reveal><div className="flex justify-center items-center space-x-6"><Star className="w-4 h-4 text-blue-400 float" /><div className="w-20 h-px bg-blue-200" /><Cross className="w-7 h-7 text-blue-500 float-slow" /><div className="w-20 h-px bg-blue-200" /><Star className="w-4 h-4 text-blue-400 float" /></div></Reveal>
           <Reveal delay={150}><h3 className="text-4xl md:text-5xl font-thin text-gray-800 italic">{t.transitionTitle}</h3><p className="text-xl text-gray-500 font-light mt-2">{t.transitionSub}</p></Reveal>
-          <Reveal delay={300}><div className="bg-white/80 rounded-2xl p-7 border border-gray-100 shadow-md max-w-sm mx-auto"><p className="text-lg text-gray-600 italic">{t.bibleTransition}</p><p className="text-gray-400 text-sm mt-1">{t.bibleTransitionRef}</p></div></Reveal>
+          <Reveal delay={300}><div className="bg-white/80 rounded-2xl p-7 border border-gray-100 shadow-md max-w-sm mx-auto"><p className="text-lg text-gray-600 italic">"Love never fails"</p><p className="text-gray-400 text-sm mt-1">— 1 Corinthians 13:8</p></div></Reveal>
         </div>
       </div>
 
@@ -842,7 +815,7 @@ export default function App() {
                   ))}
                 </div>
               </div>
-              <p className="text-rose-600 italic">{t.bibleGifts} {t.bibleGiftsRef}</p>
+              <p className="text-rose-600 italic">"It is more blessed to give than to receive" — Acts 20:35</p>
             </div>
           </Reveal>
         </div>

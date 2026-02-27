@@ -1,8 +1,8 @@
 // src/App.jsx — Masterclass Wedding Invitation
 // Features: Cormorant Garamond luxury font · sticky nav with mobile menu ·
 // smooth scroll · countdown timer · falling rose petals · grain texture overlay ·
-// lightbox gallery · RSVP form (Web3Forms) · language toggle (EN / PT) ·
-// parallax · zoom images · floating elements
+// scroll-colour theme shift · lightbox gallery · RSVP form (Formspree) ·
+// language toggle (EN / RW / PT) · parallax · zoom images · floating elements
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
@@ -38,62 +38,40 @@ const T = {
     nav: { rwanda: 'Rwanda', portugal: 'Portugal', gallery: 'Gallery', rsvp: 'RSVP' },
     countdown: { days: 'Days', hours: 'Hours', mins: 'Minutes', secs: 'Seconds', until: 'Until the Rwanda Ceremony' },
     rwanda: 'Holy Matrimony', rwandaSub: 'Rwanda — Land of a Thousand Hills',
-    mission: 'Mission', missionSub: 'Before our wedding celebration',
-    missionItems: [
-      { title: 'Teaching Children', desc: 'Join us in sharing knowledge and hope with local children.' },
-      { title: 'Visiting the Sick', desc: "Bring comfort to hospitals, sharing God's love through compassion." },
-      { title: 'Helping the Poor', desc: 'Serve those in need — food, shelter, and essential resources.' },
-    ],
-    missionDates: '28th May – 6th June 2027',
-    missionNote: 'Optional participation for wedding guests who feel called to this mission of mercy.',
-    dressRwanda: 'Dress Code: Traditional or Formal',
-    dressRwandaDesc: 'Experience a beautiful Catholic ceremony in the Land of a Thousand Hills. Food reception and celebration to follow at the community.',
-    dressPortugal: 'Dress Code: Elegant',
-    dressPortugalDesc: 'A festive reception with traditional Portuguese cuisine, music, and dancing to honour our holy matrimony.',
-    transitionTitle: 'Then celebrate with us in Portugal',
-    transitionSub: 'for our Wedding Celebration',
+    mission: 'Week of Mission', missionSub: 'Before our wedding celebration',
     portugal: 'Wedding Celebration in Portugal', portugalSub: 'Torre de Dona Chama, Bragança',
-    summer: 'Summer 2027', timeTBA: 'Time TBA',
     journey: 'Journey Information', journeySub: 'Join us for this unique celebration of love and faith',
-    journeyItems: [
-      { color: 'amber', title: 'Rwanda', items: [['Airport', 'Kigali International Airport'], ['Dates', '28th May – 6th June 2027'], ['RSVP', 'By 1st August 2026 — guests added to WhatsApp group for coordination.']], note: 'Experience the warmth of Rwandan hospitality' },
-      { color: 'blue',  title: 'Portugal', items: [['Airport', 'Porto Airport'], ['Dates', 'TBC — Summer 2027'], ['RSVP', 'By 1st August 2026 — guests added to WhatsApp group for coordination.']], note: 'Experience the beauty of Northern Portuguese culture' },
-    ],
-    gallery: 'Our Story in Images', galleryHint: 'Click any image to explore',
+    gallery: 'Our Story in Images',
     gifts: 'Gifts of Love & Service',
-    giftsDesc: 'Your presence at our celebrations is the greatest blessing we could receive. If you wish to honour our union with a gift, we humbly request offerings towards our new home together.',
-    giftsSupport: 'Your Gift Will Support',
-    giftsItems: [
-      { title: 'Our New Home', desc: 'Furniture, fittings, decoration' },
-      { title: 'Project Indabo', desc: 'Rwandan children — food, clothes, shelter' },
-      { title: 'Celebrations', desc: 'Catering and decoration' },
-    ],
     rsvpTitle: 'RSVP', rsvpDeadline: 'Please respond by 1st August 2026',
-    rsvpOr: 'Or fill in the form below',
-    rsvpContacts: [
-      { color: 'amber', title: 'Portuguese & all other guests', email: 'alvesmary98@gmail.com', phone: '+44 7729 361640' },
-      { color: 'blue',  title: 'Irish & all other guests',      email: 'comckennaa@gmail.com',  phone: '+353 851094610' },
-    ],
     rsvpForm: { name: 'Full Name', email: 'Email Address', attending: 'Which celebration(s) will you attend?',
       rwanda: 'Rwanda Ceremony (June 2027)', portugal: 'Portugal Celebration (Summer 2027)',
-      mission: 'I would like to join the Mission', dietary: 'Dietary Requirements / Accessibility Needs',
-      guests: 'Names of Guests Attending', guestsPlaceholder: 'e.g. John Smith, Jane Smith',
+      mission: 'I would like to join the Mission Week', dietary: 'Dietary Requirements / Accessibility Needs',
       prayers: 'Special Prayer Intentions', submit: 'Send RSVP', sending: 'Sending…', sent: 'RSVP Received! God bless you.' },
     footer: 'Multiple cultures, one faith, infinite blessings',
     thanks: 'Muito obrigado · Murakoze cyane · Thank you very much · Go raibh míle maith agat',
-    footerQuote: '"The Lord bless you and keep you. The Lord shine his face upon you and be gracious to you. The Lord look upon you kindly and give you peace."',
-    footerVerse: '— Numbers 6:24–26',
-    footerBlessed: 'We are blessed to share these sacred moments with you!',
-    bibleHero: '"What God has joined together, let no man separate."',
-    bibleHeroRef: '— Matthew 19:6',
-    bibleTransition: '"Love never fails"',
-    bibleTransitionRef: '— 1 Corinthians 13:8',
-    bibleMission: '"Whatever you did for one of the least of these… you did for me."',
-    bibleMissionRef: '— Matthew 25:40',
-    bibleGifts: '"It is more blessed to give than to receive"',
-    bibleGiftsRef: '— Acts 20:35',
-    biblePhoto: '"Be still and know that I am God"',
-    biblePhotoRef: '— Psalm 46:10',
+  },
+  RW: {
+    lang: 'RW', flag: '🇷🇼',
+    tagline: "Mu izina rya Data, Umwana n'Umwuka Wera",
+    subtitle: 'Imitima ibiri, Imico ibiri, Urukundo rumwe muri Kristo',
+    invite: "basaba ko muri kumwe kandi musengera hamwe igihe bateranya mu Sakaramentu y'Ubukwe Bwera mu birori bibiri",
+    scroll: 'Komeza urugendo rwawe natwe',
+    nav: { rwanda: 'Rwanda', portugal: 'Porutugali', gallery: 'Amafoto', rsvp: 'Igisubizo' },
+    countdown: { days: 'Iminsi', hours: 'Amasaha', mins: 'Iminota', secs: 'Inzegaminota', until: 'Kugeza ku Misa yo Rwanda' },
+    rwanda: 'Ubukwe Bwera', rwandaSub: 'Rwanda — Igihugu cy\'Imisozi Igihumbi',
+    mission: 'Icyumweru cy\'Ubutume', missionSub: 'Mbere y\'ubukwe bwacu',
+    portugal: 'Ibirori by\'Ubukwe muri Porutugali', portugalSub: 'Torre de Dona Chama, Bragança',
+    journey: 'Amakuru y\'Urugendo', journeySub: 'Turagira ibyishimo kubabona mu birori byacu',
+    gallery: 'Inkuru yacu mu Mafoto',
+    gifts: 'Impano z\'Urukundo n\'Serivisi',
+    rsvpTitle: 'Igisubizo', rsvpDeadline: 'Nyamuneka subiza mbere ya 1 Kanama 2026',
+    rsvpForm: { name: 'Amazina yombi', email: 'Imeyili', attending: 'Ni ibihe birori uzajya?',
+      rwanda: 'Ubukwe muri Rwanda (Kamena 2027)', portugal: 'Ibirori muri Porutugali (Impeshyi 2027)',
+      mission: 'Ndashaka kujya mu cyumweru cy\'ubutume', dietary: 'Ibyo kurya / Ibikenewe',
+      prayers: 'Amasengesho Yihariye', submit: 'Ohereza Igisubizo', sending: 'Kohereza…', sent: 'Igisubizo cyakirwe! Imana ikubarinde.' },
+    footer: 'Imico myinshi, ukwizera kumwe, ingabire zidashira',
+    thanks: 'Murakoze cyane · Thank you · Muito obrigado · Go raibh míle maith agat',
   },
   PT: {
     lang: 'PT', flag: '🇵🇹',
@@ -104,62 +82,18 @@ const T = {
     nav: { rwanda: 'Ruanda', portugal: 'Portugal', gallery: 'Galeria', rsvp: 'RSVP' },
     countdown: { days: 'Dias', hours: 'Horas', mins: 'Minutos', secs: 'Segundos', until: 'Até à Cerimónia no Ruanda' },
     rwanda: 'Santo Matrimônio', rwandaSub: 'Ruanda — Terra dos Mil Colinas',
-    mission: 'Missão', missionSub: 'Antes da nossa celebração de casamento',
-    missionItems: [
-      { title: 'Ensinar Crianças', desc: 'Junte-se a nós para partilhar conhecimento e esperança com crianças locais.' },
-      { title: 'Visitar os Doentes', desc: 'Leve conforto aos hospitais, partilhando o amor de Deus através da compaixão.' },
-      { title: 'Ajudar os Pobres', desc: 'Sirva os necessitados — alimentos, abrigo e recursos essenciais.' },
-    ],
-    missionDates: '28 de Maio – 6 de Junho de 2027',
-    missionNote: 'Participação opcional para convidados do casamento que se sintam chamados a esta missão de misericórdia.',
-    dressRwanda: 'Código de Vestuário: Tradicional ou Formal',
-    dressRwandaDesc: 'Experiencie uma bela cerimónia católica no Ruanda. Receção com comida e celebração a seguir na comunidade.',
-    dressPortugal: 'Código de Vestuário: Elegante',
-    dressPortugalDesc: 'Uma receção festiva com culinária portuguesa tradicional, música e dança para honrar o nosso santo matrimônio.',
-    transitionTitle: 'Depois celebre connosco em Portugal',
-    transitionSub: 'para a nossa Celebração de Casamento',
+    mission: 'Semana de Missão', missionSub: 'Antes da nossa celebração de casamento',
     portugal: 'Celebração do Casamento em Portugal', portugalSub: 'Torre de Dona Chama, Bragança',
-    summer: 'Verão de 2027', timeTBA: 'Hora a Confirmar',
     journey: 'Informações de Viagem', journeySub: 'Junte-se a nós nesta celebração única de amor e fé',
-    journeyItems: [
-      { color: 'amber', title: 'Ruanda', items: [['Aeroporto', 'Aeroporto Internacional de Kigali'], ['Datas', '28 de Maio – 6 de Junho de 2027'], ['RSVP', 'Até 1 de Agosto de 2026 — convidados adicionados ao grupo WhatsApp para coordenação.']], note: 'Experiencie o calor da hospitalidade ruandesa' },
-      { color: 'blue',  title: 'Portugal', items: [['Aeroporto', 'Aeroporto do Porto'], ['Datas', 'A Confirmar — Verão 2027'], ['RSVP', 'Até 1 de Agosto de 2026 — convidados adicionados ao grupo WhatsApp para coordenação.']], note: 'Experiencie a beleza da cultura do Norte de Portugal' },
-    ],
-    gallery: 'A Nossa História em Imagens', galleryHint: 'Clique em qualquer imagem para explorar',
+    gallery: 'A Nossa História em Imagens',
     gifts: 'Presentes de Amor e Serviço',
-    giftsDesc: 'A vossa presença nas nossas celebrações é a maior bênção que poderíamos receber. Se desejarem honrar a nossa união com um presente, pedimos humildemente ofertas para o nosso novo lar.',
-    giftsSupport: 'O Seu Presente Apoiará',
-    giftsItems: [
-      { title: 'O Nosso Novo Lar', desc: 'Mobília, equipamentos, decoração' },
-      { title: 'Projeto Indabo', desc: 'Crianças ruandesas — alimentação, roupa, abrigo' },
-      { title: 'Celebrações', desc: 'Catering e decoração' },
-    ],
     rsvpTitle: 'RSVP', rsvpDeadline: 'Por favor, responda até 1 de Agosto de 2026',
-    rsvpOr: 'Ou preencha o formulário abaixo',
-    rsvpContacts: [
-      { color: 'amber', title: 'Convidados domiciliados em Portugal e outros', email: 'alvesmary98@gmail.com', phone: '+44 7729 361640' },
-      { color: 'blue',  title: 'Convidados domiciliados na Irlanda e outros',  email: 'comckennaa@gmail.com',  phone: '+353 851094610' },
-    ],
     rsvpForm: { name: 'Nome Completo', email: 'Endereço de Email', attending: 'A que celebração(ões) irá?',
       rwanda: 'Cerimónia no Ruanda (Junho 2027)', portugal: 'Celebração em Portugal (Verão 2027)',
-      mission: 'Gostaria de participar na Missão', dietary: 'Requisitos Alimentares / Necessidades de Acessibilidade',
-      guests: 'Nomes dos Convidados que Virão', guestsPlaceholder: 'ex: João Silva, Maria Silva',
+      mission: 'Gostaria de participar na Semana de Missão', dietary: 'Requisitos Alimentares / Necessidades',
       prayers: 'Intenções de Oração Especiais', submit: 'Enviar RSVP', sending: 'A enviar…', sent: 'RSVP Recebido! Deus vos abençoe.' },
     footer: 'Múltiplas culturas, uma fé, bênçãos infinitas',
     thanks: 'Muito obrigado · Murakoze cyane · Thank you · Go raibh míle maith agat',
-    footerQuote: '"O Senhor te abençoe e te guarde. O Senhor faça resplandecer o seu rosto sobre ti e tenha misericórdia de ti. O Senhor volte o seu rosto para ti e te dê a paz."',
-    footerVerse: '— Números 6:24–26',
-    footerBlessed: 'Estamos abençoados por partilhar estes momentos sagrados convosco!',
-    bibleHero: '"O que Deus uniu, o homem não separe."',
-    bibleHeroRef: '— Mateus 19:6',
-    bibleTransition: '"O amor nunca falha"',
-    bibleTransitionRef: '— 1 Coríntios 13:8',
-    bibleMission: '"O que fizestes a um destes meus irmãos mais pequeninos, a mim o fizestes."',
-    bibleMissionRef: '— Mateus 25:40',
-    bibleGifts: '"Há mais felicidade em dar do que em receber"',
-    bibleGiftsRef: '— Actos 20:35',
-    biblePhoto: '"Aquietai-vos e sabei que eu sou Deus"',
-    biblePhotoRef: '— Salmo 46:10',
   },
 };
 
@@ -374,12 +308,12 @@ function Lightbox({ images, index, onClose, onNext, onPrev }) {
 }
 
 // ── RSVP Form ─────────────────────────────────────────────────────────────────
-// Replace with your full Web3Forms access key from web3forms.com
-const WEB3FORMS_KEY = '8ebd7fe2-03a7-4898-ad40-dea3fa2bda0a';
+// Replace YOUR_FORM_ID below with your Formspree form ID (free at formspree.io)
+const FORMSPREE_ID = 'YOUR_FORM_ID';
 
 function RSVPForm({ t }) {
   const tf = t.rsvpForm;
-  const [form, setForm] = useState({ name: '', email: '', rwanda: false, portugal: false, mission: false, guests: '', dietary: '', prayers: '' });
+  const [form, setForm] = useState({ name: '', email: '', rwanda: false, portugal: false, mission: false, dietary: '', prayers: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const handle = e => {
@@ -391,9 +325,9 @@ function RSVPForm({ t }) {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...form }),
+        body: JSON.stringify(form),
       });
       setStatus(res.ok ? 'sent' : 'error');
     } catch { setStatus('error'); }
@@ -433,11 +367,6 @@ function RSVPForm({ t }) {
             </label>
           ))}
         </div>
-      </div>
-
-      <div>
-        <label className="block text-gray-600 tracking-widest uppercase text-xs mb-2">{tf.guests}</label>
-        <textarea name="guests" value={form.guests} onChange={handle} rows={3} className="rsvp-input resize-none" placeholder={tf.guestsPlaceholder} />
       </div>
 
       <div>
@@ -599,8 +528,8 @@ export default function App() {
           </div>
 
           <div className="hero-quote bg-white/60 backdrop-blur-sm rounded-3xl p-8 max-w-xl mx-auto border border-white/80" style={{ animationDelay: '1s' }}>
-            <p className="text-lg text-gray-700 italic mb-2">{t.bibleHero}</p>
-            <p className="text-sm text-gray-500">{t.bibleHeroRef}</p>
+            <p className="text-lg text-gray-700 italic mb-2">"What God has joined together, let no man separate."</p>
+            <p className="text-sm text-gray-500">— Matthew 19:6</p>
           </div>
 
           <div className="pt-8 float">
@@ -662,14 +591,14 @@ export default function App() {
                 </Reveal>
                 <Reveal direction="right" delay={280}>
                   <div className="bg-amber-50/80 rounded-2xl p-7">
-                    <p className="text-amber-900 font-medium mb-2">{t.dressRwanda}</p>
-                    <p className="text-gray-600 leading-relaxed">{t.dressRwandaDesc}</p>
+                    <p className="text-amber-900 font-medium mb-2">Dress Code: Traditional or Formal</p>
+                    <p className="text-gray-600 leading-relaxed">Experience a beautiful Catholic ceremony in the Land of a Thousand Hills. Food reception and celebration to follow at the community.</p>
                   </div>
                 </Reveal>
               </div>
             </div>
 
-            {/* Mission */}
+            {/* Mission Week */}
             <Reveal delay={150} className="mt-24">
               <div className="bg-white rounded-[2rem] p-12 shadow-2xl max-w-5xl mx-auto border border-amber-100">
                 <div className="text-center mb-10">
@@ -678,21 +607,25 @@ export default function App() {
                   <p className="text-orange-600 tracking-widest uppercase text-xs">{t.missionSub}</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8 mb-10">
-                  {[GraduationCap, Stethoscope, HandHeart].map((Icon, i) => (
-                    <Reveal key={i} delay={i * 100}>
+                  {[
+                    { icon: GraduationCap, title: 'Teaching Children',  desc: 'Join us in sharing knowledge and hope with local children.' },
+                    { icon: Stethoscope,   title: 'Visiting the Sick',   desc: "Bring comfort to hospitals, sharing God's love through compassion." },
+                    { icon: HandHeart,     title: 'Helping the Poor',    desc: 'Serve those in need — food, shelter, and essential resources.' },
+                  ].map(({ icon: Icon, title, desc }, i) => (
+                    <Reveal key={title} delay={i * 100}>
                       <div className="text-center space-y-4">
                         <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto" style={{ transition: 'transform 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.15) rotate(5deg)'; }} onMouseLeave={e => { e.currentTarget.style.transform = ''; }}>
                           <Icon className="w-7 h-7 text-orange-700" />
                         </div>
-                        <h4 className="text-lg font-medium text-gray-800">{t.missionItems[i].title}</h4>
-                        <p className="text-gray-500 leading-relaxed text-sm">{t.missionItems[i].desc}</p>
+                        <h4 className="text-lg font-medium text-gray-800">{title}</h4>
+                        <p className="text-gray-500 leading-relaxed text-sm">{desc}</p>
                       </div>
                     </Reveal>
                   ))}
                 </div>
                 <div className="bg-orange-50 rounded-2xl p-8 text-center">
-                  <p className="text-gray-700 leading-relaxed mb-3"><strong>{t.missionDates}</strong> — {t.missionNote}</p>
-                  <p className="text-orange-700 italic text-sm">{t.bibleMission} {t.bibleMissionRef}</p>
+                  <p className="text-gray-700 leading-relaxed mb-3"><strong>28th May – 9th June 2027</strong> — Optional participation for wedding guests who feel called to this mission of mercy.</p>
+                  <p className="text-orange-700 italic text-sm">"Whatever you did for one of the least of these… you did for me." — Matthew 25:40</p>
                 </div>
               </div>
             </Reveal>
@@ -704,8 +637,8 @@ export default function App() {
       <div className="section-transition relative py-20 px-4 bg-white">
         <div className="max-w-3xl mx-auto text-center space-y-10">
           <Reveal><div className="flex justify-center items-center space-x-6"><Star className="w-4 h-4 text-blue-400 float" /><div className="w-20 h-px bg-blue-200" /><Cross className="w-7 h-7 text-blue-500 float-slow" /><div className="w-20 h-px bg-blue-200" /><Star className="w-4 h-4 text-blue-400 float" /></div></Reveal>
-          <Reveal delay={150}><h3 className="text-4xl md:text-5xl font-thin text-gray-800 italic">{t.transitionTitle}</h3><p className="text-xl text-gray-500 font-light mt-2">{t.transitionSub}</p></Reveal>
-          <Reveal delay={300}><div className="bg-white/80 rounded-2xl p-7 border border-gray-100 shadow-md max-w-sm mx-auto"><p className="text-lg text-gray-600 italic">{t.bibleTransition}</p><p className="text-gray-400 text-sm mt-1">{t.bibleTransitionRef}</p></div></Reveal>
+          <Reveal delay={150}><h3 className="text-4xl md:text-5xl font-thin text-gray-800 italic">Then celebrate with us in Portugal</h3></Reveal>
+          <Reveal delay={300}><div className="bg-white/80 rounded-2xl p-7 border border-gray-100 shadow-md max-w-sm mx-auto"><p className="text-lg text-gray-600 italic">"Love never fails"</p><p className="text-gray-400 text-sm mt-1">— 1 Corinthians 13:8</p></div></Reveal>
         </div>
       </div>
 
@@ -731,8 +664,8 @@ export default function App() {
                     <div className="space-y-8">
                       <div className="flex items-center space-x-6"><div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center"><Globe className="w-7 h-7 text-blue-700" /></div><div><p className="text-3xl text-blue-800 font-thin italic">Torre de Dona Chama</p><p className="text-gray-500">Bragança, Portugal</p></div></div>
                       <div className="grid grid-cols-2 gap-6">
-                        <div className="flex items-center space-x-3"><Calendar className="w-5 h-5 text-blue-500" /><p className="text-gray-800 font-light">{t.summer}</p></div>
-                        <div className="flex items-center space-x-3"><Clock className="w-5 h-5 text-blue-500" /><p className="text-gray-800 font-light">{t.timeTBA}</p></div>
+                        <div className="flex items-center space-x-3"><Calendar className="w-5 h-5 text-blue-500" /><p className="text-gray-800 font-light">Summer 2027</p></div>
+                        <div className="flex items-center space-x-3"><Clock className="w-5 h-5 text-blue-500" /><p className="text-gray-800 font-light">Time TBA</p></div>
                       </div>
                       <div className="border-t border-gray-100 pt-6 flex items-start space-x-3"><MapPin className="w-5 h-5 text-blue-500 mt-1 shrink-0" /><p className="text-gray-700 font-light">Torre de Dona Chama, Bragança</p></div>
                     </div>
@@ -740,8 +673,8 @@ export default function App() {
                 </Reveal>
                 <Reveal direction="left" delay={250}>
                   <div className="bg-blue-50/80 rounded-2xl p-7">
-                    <p className="text-blue-900 font-medium mb-2">{t.dressPortugal}</p>
-                    <p className="text-gray-600 leading-relaxed">{t.dressPortugalDesc}</p>
+                    <p className="text-blue-900 font-medium mb-2">Dress Code: Elegant</p>
+                    <p className="text-gray-600 leading-relaxed">A festive reception with traditional Portuguese cuisine, music, and dancing to honour our holy matrimony.</p>
                   </div>
                 </Reveal>
               </div>
@@ -769,7 +702,10 @@ export default function App() {
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {t.journeyItems.map(({ color, title, items, note }, i) => (
+            {[
+              { color: 'amber', title: 'Rwanda', items: [['Airport', 'Kigali International Airport'], ['Dates', '28th May – 9th June 2027'], ['RSVP', 'By 1st August 2026 — guests added to WhatsApp group for coordination.']], note: 'Experience the warmth of Rwandan hospitality' },
+              { color: 'blue',  title: 'Portugal', items: [['Airport', 'Porto Airport'], ['Dates', 'TBC — Summer 2027'], ['RSVP', 'By 1st August 2026 — guests added to WhatsApp group for coordination.']], note: 'Experience the beauty of Northern Portuguese culture' },
+            ].map(({ color, title, items, note }, i) => (
               <Reveal key={title} direction={i === 0 ? 'left' : 'right'} delay={i * 150}>
                 <div className="bg-white rounded-[2rem] p-12 shadow-2xl border border-gray-100 relative overflow-hidden"
                   style={{ transition: 'transform 0.3s, box-shadow 0.3s' }}
@@ -817,7 +753,7 @@ export default function App() {
             ))}
           </div>
           <Reveal delay={300}>
-            <p className="text-center text-gray-400 text-sm tracking-widest uppercase mt-8">{t.galleryHint}</p>
+            <p className="text-center text-gray-400 text-sm tracking-widest uppercase mt-8">Click any image to explore</p>
           </Reveal>
         </div>
       </div>
@@ -830,19 +766,19 @@ export default function App() {
           <Reveal delay={200}>
             <div className="bg-white rounded-3xl p-14 shadow-2xl border border-rose-100">
               <HandHeart className="w-12 h-12 text-rose-400 mx-auto mb-8 float" />
-              <p className="text-gray-600 leading-relaxed text-xl mb-10 italic">{t.giftsDesc}</p>
+              <p className="text-gray-600 leading-relaxed text-xl mb-10 italic">Your presence at our celebrations is the greatest blessing we could receive. If you wish to honour our union with a gift, we humbly request offerings towards our new home together.</p>
               <div className="bg-rose-50 rounded-2xl p-10 mb-8">
-                <h4 className="text-xl text-rose-700 mb-6 font-light tracking-widest uppercase text-sm">{t.giftsSupport}</h4>
+                <h4 className="text-xl text-rose-700 mb-6 font-light tracking-widest uppercase text-sm">Your Gift Will Support</h4>
                 <div className="grid md:grid-cols-3 gap-8 text-left">
-                  {[House, Stethoscope, HandHeart].map((Icon, i) => (
-                    <div key={i} className="flex items-start space-x-3" style={{ transition: 'transform 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(5px)'; }} onMouseLeave={e => { e.currentTarget.style.transform = ''; }}>
+                  {[{ icon: House, title: 'Our New Home', desc: 'Furniture, fittings, decoration' }, { icon: Stethoscope, title: 'Project Indabo', desc: 'Rwandan children — food, clothes, shelter' }, { icon: HandHeart, title: 'Celebrations', desc: 'Catering and decoration' }].map(({ icon: Icon, title, desc }) => (
+                    <div key={title} className="flex items-start space-x-3" style={{ transition: 'transform 0.3s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(5px)'; }} onMouseLeave={e => { e.currentTarget.style.transform = ''; }}>
                       <Icon className="w-5 h-5 text-rose-500 mt-1 shrink-0" />
-                      <div><p className="font-medium text-rose-800">{t.giftsItems[i].title}</p><p className="text-gray-500 text-sm">{t.giftsItems[i].desc}</p></div>
+                      <div><p className="font-medium text-rose-800">{title}</p><p className="text-gray-500 text-sm">{desc}</p></div>
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="text-rose-600 italic">{t.bibleGifts} {t.bibleGiftsRef}</p>
+              <p className="text-rose-600 italic">"It is more blessed to give than to receive" — Acts 20:35</p>
             </div>
           </Reveal>
         </div>
@@ -859,7 +795,10 @@ export default function App() {
 
           {/* Contact cards */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {t.rsvpContacts.map(({ color, title, email, phone }, i) => (
+            {[
+              { color: 'amber', title: 'Portuguese & all other guests', email: 'alvesmary98@gmail.com', phone: '+44 7729 361640' },
+              { color: 'blue',  title: 'Irish & all other guests',       email: 'comckennaa@gmail.com', phone: '+353 851094610' },
+            ].map(({ color, title, email, phone }, i) => (
               <Reveal key={title} direction={i === 0 ? 'left' : 'right'} delay={i * 100}>
                 <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center"
                   style={{ transition: 'transform 0.3s, box-shadow 0.3s' }}
@@ -876,11 +815,11 @@ export default function App() {
           {/* RSVP Form */}
           <Reveal delay={200}>
             <div className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100">
-              <h3 className="text-2xl font-thin text-gray-700 italic text-center mb-8">{t.rsvpOr}</h3>
+              <h3 className="text-2xl font-thin text-gray-700 italic text-center mb-8">Or fill in the form below</h3>
               <RSVPForm t={t} />
-              {WEB3FORMS_KEY.includes('XXXX') && (
+              {FORMSPREE_ID === 'YOUR_FORM_ID' && (
                 <p className="text-center text-gray-400 text-xs mt-4 italic">
-                  To enable the form: paste your full Web3Forms key at the top of App.jsx
+                  To enable the form: create a free account at formspree.io, get your form ID, and replace YOUR_FORM_ID at the top of App.jsx
                 </p>
               )}
             </div>
@@ -906,12 +845,12 @@ export default function App() {
           </Reveal>
           <Reveal delay={200}>
             <div className="bg-rose-50 rounded-2xl p-8 max-w-2xl mx-auto">
-              <p className="text-rose-700 italic leading-relaxed">{t.footerQuote}</p>
-              <p className="text-gray-400 text-sm mt-3">{t.footerVerse}</p>
+              <p className="text-rose-700 italic leading-relaxed">"The Lord bless you and keep you. The Lord shine his face upon you and be gracious to you. The Lord look upon you kindly and give you peace."</p>
+              <p className="text-gray-400 text-sm mt-3">— Numbers 6:24–26</p>
             </div>
           </Reveal>
           <Reveal delay={300}>
-            <p className="text-gray-400 text-sm">{t.footerBlessed}</p>
+            <p className="text-gray-400 text-sm">We are blessed to share these sacred moments with you!</p>
             <div className="flex justify-center space-x-3 mt-6">
               <div className="w-px h-10 bg-gradient-to-b from-rose-300 to-transparent" />
               <Cross className="w-6 h-6 text-rose-400 float" />
