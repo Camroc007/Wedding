@@ -12,18 +12,24 @@ import {
 } from 'lucide-react';
 
 // ── Images — swap URLs for local imports when ready ───────────────────────────
-import coupleImage     from './assets/couple.jpg';
+import coupleImage     from './assets/lakecomo.jpg';
 import rwandaLandscape from './assets/butare_scene.jpeg';
 import missionWork     from './assets/kids.jpg';
 import portugalVillage from './assets/chamas.jpeg';
+import rwandaField from './assets/rwanda_field.jpg';
+import sahara     from './assets/sahara.jpg';
+import vietnam    from './assets/vietnam.jpg';
+import milan      from './assets/milan.jpg';
+import lakecomo   from './assets/cornwall.jpg';
+import italy      from './assets/italy.jpg';
 
 const galleryImages = [
-  { src: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=800&q=80', caption: 'Rwanda — Land of a Thousand Hills' },
-  { src: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80', caption: 'Butare, Rwanda' },
-  { src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80', caption: 'Mission Work' },
-  { src: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80', caption: 'Torre de Dona Chama, Portugal' },
-  { src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80', caption: 'Bragança Region' },
-  { src: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80', caption: 'Our Love Story' },
+  { src: rwandaField, caption: 'Rwanda',    position: 'left center' },
+  { src: sahara,      caption: 'Morocco',   position: 'center 50%' },
+  { src: vietnam,     caption: 'Vietnam',   position: 'center 70%' },
+  { src: milan,       caption: 'Milan',     position: 'center 70%' },
+  { src: lakecomo,    caption: 'Cornwall', position: 'center 70%' },
+  { src: italy,       caption: 'Italy',     position: 'center 70%' },
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -276,7 +282,8 @@ function Reveal({ children, className = '', delay = 0, direction = 'up' }) {
   );
 }
 
-function ParallaxImg({ src, alt, className, strength = 0.15 }) {
+// ── FIX 1: style prop added so objectPosition is actually applied ─────────────
+function ParallaxImg({ src, alt, className, strength = 0.15, style = {} }) {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current; if (!el) return;
@@ -284,14 +291,18 @@ function ParallaxImg({ src, alt, className, strength = 0.15 }) {
     window.addEventListener('scroll', fn, { passive: true }); fn();
     return () => window.removeEventListener('scroll', fn);
   }, [strength]);
-  return <img ref={ref} src={src} alt={alt} className={className} loading="lazy" onError={e => { e.currentTarget.style.display = 'none'; }} style={{ willChange: 'transform' }} />;
+  return <img ref={ref} src={src} alt={alt} className={className} loading="lazy" onError={e => { e.currentTarget.style.display = 'none'; }} style={{ willChange: 'transform', ...style }} />;
 }
 
-function ZoomCard({ src, alt, className, containerClass = '', onClick }) {
+function ZoomCard({ src, alt, className, containerClass = '', onClick, position = 'center center' }) {
   return (
     <div className={containerClass} style={{ overflow: 'hidden', cursor: onClick ? 'pointer' : 'default' }} onClick={onClick}>
       <img src={src} alt={alt} className={className} loading="lazy" onError={e => { e.currentTarget.style.display = 'none'; }}
-        style={{ transition: 'transform 0.7s cubic-bezier(0.22,1,0.36,1)', willChange: 'transform' }}
+        style={{
+          objectPosition: position,
+          transition: 'transform 0.7s cubic-bezier(0.22,1,0.36,1)',
+          willChange: 'transform'
+        }}
         onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.07)'; }}
         onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }} />
     </div>
@@ -374,13 +385,12 @@ function Lightbox({ images, index, onClose, onNext, onPrev }) {
 }
 
 // ── RSVP Form ─────────────────────────────────────────────────────────────────
-// Replace with your full Web3Forms access key from web3forms.com
 const WEB3FORMS_KEY = '8ebd7fe2-03a7-4898-ad40-dea3fa2bda0a';
 
 function RSVPForm({ t }) {
   const tf = t.rsvpForm;
   const [form, setForm] = useState({ name: '', email: '', rwanda: false, portugal: false, mission: false, guests: '', dietary: '', prayers: '' });
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [status, setStatus] = useState('idle');
 
   const handle = e => {
     const { name, value, type, checked } = e.target;
@@ -468,7 +478,6 @@ export default function App() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const t = T[lang];
 
-  // Inject global styles
   useEffect(() => {
     const tag = document.createElement('style');
     tag.textContent = globalStyles;
@@ -477,7 +486,6 @@ export default function App() {
     return () => document.head.removeChild(tag);
   }, []);
 
-  // Sticky nav on scroll
   useEffect(() => {
     const fn = () => setNavVisible(window.scrollY > window.innerHeight * 0.6);
     window.addEventListener('scroll', fn, { passive: true });
@@ -492,32 +500,22 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 font-display">
 
-      {/* Grain Overlay */}
       <div className="grain-overlay" aria-hidden="true" />
-
-      {/* Falling Petals */}
       <FallingPetals />
-
-      {/* Lightbox */}
       <Lightbox images={galleryImages} index={lightboxIdx} onClose={() => setLightboxIdx(null)} onNext={nextLightbox} onPrev={prevLightbox} />
 
-      {/* ── STICKY NAV ─────────────────────────────────────────────────────── */}
       {navVisible && (
         <nav className="nav-animate fixed top-0 left-0 right-0 z-[100] bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
           <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
             <button onClick={() => scrollTo('hero')} className="text-gray-800 tracking-widest text-sm font-light uppercase italic">
               ML & CMH
             </button>
-
-            {/* Desktop links */}
             <div className="hidden md:flex items-center space-x-8">
               {[['rwanda', t.nav.rwanda], ['portugal', t.nav.portugal], ['gallery', t.nav.gallery], ['rsvp', t.nav.rsvp]].map(([id, label]) => (
                 <button key={id} onClick={() => scrollTo(id)} className="nav-link text-gray-600 hover:text-gray-900">{label}</button>
               ))}
             </div>
-
             <div className="flex items-center space-x-4">
-              {/* Language toggle */}
               <div className="flex items-center space-x-1 bg-gray-100 rounded-full p-1">
                 {Object.values(T).map(({ lang: l, flag }) => (
                   <button key={l} onClick={() => setLang(l)}
@@ -526,14 +524,11 @@ export default function App() {
                   </button>
                 ))}
               </div>
-              {/* Mobile menu button */}
               <button onClick={() => setMobileOpen(o => !o)} className="md:hidden text-gray-600">
                 {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
-
-          {/* Mobile dropdown */}
           {mobileOpen && (
             <div className="md:hidden border-t border-gray-100 bg-white/95 px-6 py-4 space-y-4">
               {[['rwanda', t.nav.rwanda], ['portugal', t.nav.portugal], ['gallery', t.nav.gallery], ['rsvp', t.nav.rsvp]].map(([id, label]) => (
@@ -546,20 +541,19 @@ export default function App() {
         </nav>
       )}
 
-      {/* ── HERO ───────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <div id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0" style={{ overflow: 'hidden' }}>
-          <ParallaxImg src={coupleImage} alt="Couple portrait" className="w-full h-[120%] object-cover object-center -mt-[10%]" strength={0.1} />
+          {/* FIX 2: 'centre' typo corrected to 'center', value set to 65% */}
+          <ParallaxImg src={coupleImage} alt="Couple portrait" className="w-full h-[120%] object-cover -mt-[10%]" strength={0.1} style={{ objectPosition: 'center 90%' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/45 to-white/60" />
           <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-white/50" />
         </div>
 
-        {/* Floating crosses */}
         <div className="absolute top-8 right-8 opacity-10 z-10 float-slow"><Cross className="w-24 h-24 text-gray-600" /></div>
         <div className="absolute bottom-8 left-8 opacity-10 z-10 float"><Cross className="w-16 h-16 text-gray-600" /></div>
 
         <div className="relative z-10 px-4 py-20 text-center max-w-6xl mx-auto space-y-14">
-
           <div className="hero-sub flex justify-center items-center space-x-6">
             <div className="w-20 h-px bg-gradient-to-r from-transparent to-rose-300" />
             <div className="relative float"><Heart className="w-12 h-12 text-rose-400 fill-current" /><Cross className="w-6 h-6 text-rose-300 absolute -top-2 -right-2" /></div>
@@ -572,7 +566,6 @@ export default function App() {
             <p className="text-gray-700 tracking-[0.3em] uppercase text-xs font-light">{t.subtitle}</p>
           </div>
 
-          {/* Names */}
           <div className="space-y-8">
             <div className="hero-title relative" style={{ animationDelay: '0.1s' }}>
               <h1 className="text-7xl md:text-9xl lg:text-[10rem] text-gray-800 font-thin tracking-widest leading-none italic">Mary Lucy</h1>
@@ -593,7 +586,6 @@ export default function App() {
             <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed italic">{t.invite}</p>
           </div>
 
-          {/* Countdown */}
           <div className="hero-quote bg-white/70 backdrop-blur-sm rounded-3xl p-8 max-w-2xl mx-auto border border-white/80 shadow-lg" style={{ animationDelay: '0.8s' }}>
             <Countdown t={t.countdown} />
           </div>
@@ -612,13 +604,12 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── RWANDA ─────────────────────────────────────────────────────────── */}
+      {/* ── RWANDA ── */}
       <div id="rwanda" className="section-transition relative bg-gradient-to-b from-orange-50 to-amber-50 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-35" style={{ overflow: 'hidden' }}>
           <ParallaxImg src={rwandaLandscape} alt="Rwanda" className="w-full h-[120%] object-cover -mt-[10%]" strength={0.12} />
           <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white/50" />
         </div>
-
         <div className="relative z-10 py-32 px-4">
           <div className="max-w-7xl mx-auto">
             <Reveal className="text-center mb-20">
@@ -640,7 +631,6 @@ export default function App() {
                   <ZoomCard src={missionWork} alt="Mission" className="w-full h-64 object-cover" containerClass="rounded-[2rem] shadow-2xl" onClick={() => setLightboxIdx(2)} />
                 </Reveal>
               </div>
-
               <div className="space-y-8 order-1 lg:order-2">
                 <Reveal direction="right" delay={150}>
                   <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border border-white/70">
@@ -669,7 +659,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Mission */}
             <Reveal delay={150} className="mt-24">
               <div className="bg-white rounded-[2rem] p-12 shadow-2xl max-w-5xl mx-auto border border-amber-100">
                 <div className="text-center mb-10">
@@ -700,7 +689,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── TRANSITION ─────────────────────────────────────────────────────── */}
+      {/* ── TRANSITION ── */}
       <div className="section-transition relative py-20 px-4 bg-white">
         <div className="max-w-3xl mx-auto text-center space-y-10">
           <Reveal><div className="flex justify-center items-center space-x-6"><Star className="w-4 h-4 text-blue-400 float" /><div className="w-20 h-px bg-blue-200" /><Cross className="w-7 h-7 text-blue-500 float-slow" /><div className="w-20 h-px bg-blue-200" /><Star className="w-4 h-4 text-blue-400 float" /></div></Reveal>
@@ -709,13 +698,12 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── PORTUGAL ───────────────────────────────────────────────────────── */}
+      {/* ── PORTUGAL ── */}
       <div id="portugal" className="section-transition relative bg-gradient-to-b from-slate-50 to-blue-50 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-40" style={{ overflow: 'hidden' }}>
           <ParallaxImg src={portugalVillage} alt="Portugal" className="w-full h-[120%] object-cover -mt-[10%]" strength={0.1} />
           <div className="absolute inset-0 bg-white/55" />
         </div>
-
         <div className="relative z-10 py-32 px-4">
           <div className="max-w-7xl mx-auto">
             <Reveal className="text-center mb-20">
@@ -723,7 +711,6 @@ export default function App() {
               <h2 className="text-5xl md:text-7xl font-thin text-gray-800 mb-4 italic">{t.portugal}</h2>
               <p className="text-blue-700 tracking-[0.4em] uppercase text-sm font-light">{t.portugalSub}</p>
             </Reveal>
-
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div className="space-y-8">
                 <Reveal direction="left" delay={100}>
@@ -745,7 +732,6 @@ export default function App() {
                   </div>
                 </Reveal>
               </div>
-
               <Reveal direction="right" delay={200}>
                 <div className="relative">
                   <ZoomCard src={portugalVillage} alt="Portugal" className="w-full h-[28rem] object-cover" containerClass="rounded-[2rem] shadow-2xl" onClick={() => setLightboxIdx(3)} />
@@ -759,7 +745,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── JOURNEY ────────────────────────────────────────────────────────── */}
+      {/* ── JOURNEY ── */}
       <div className="section-transition relative py-32 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-20">
@@ -767,7 +753,6 @@ export default function App() {
             <h2 className="text-5xl font-thin text-gray-800 italic mb-4">{t.journey}</h2>
             <p className="text-gray-500 text-lg font-light">{t.journeySub}</p>
           </Reveal>
-
           <div className="grid md:grid-cols-2 gap-12">
             {t.journeyItems.map(({ color, title, items, note }, i) => (
               <Reveal key={title} direction={i === 0 ? 'left' : 'right'} delay={i * 150}>
@@ -797,7 +782,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── GALLERY ────────────────────────────────────────────────────────── */}
+      {/* ── GALLERY ── */}
       <div id="gallery" className="section-transition py-32 px-4 bg-gradient-to-b from-neutral-50 to-white">
         <div className="max-w-7xl mx-auto">
           <Reveal className="text-center mb-16">
@@ -809,6 +794,7 @@ export default function App() {
               <Reveal key={i} delay={i * 80} direction="scale">
                 <ZoomCard
                   src={img.src} alt={img.caption}
+                  position={img.position}
                   className="w-full h-48 md:h-64 object-cover"
                   containerClass={`rounded-2xl shadow-lg ${i === 0 ? 'md:col-span-2 md:row-span-1' : ''}`}
                   onClick={() => setLightboxIdx(i)}
@@ -822,7 +808,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── GIFTS ──────────────────────────────────────────────────────────── */}
+      {/* ── GIFTS ── */}
       <div className="section-transition py-32 px-4 bg-gradient-to-b from-rose-50 via-white to-rose-50">
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <Reveal><div className="flex items-center justify-center space-x-6"><div className="w-16 h-px bg-rose-300" /><div className="relative float"><Heart className="w-10 h-10 text-rose-500" /><Cross className="w-5 h-5 text-rose-300 absolute -top-1 -right-1" /></div><div className="w-16 h-px bg-rose-300" /></div></Reveal>
@@ -848,7 +834,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── RSVP ───────────────────────────────────────────────────────────── */}
+      {/* ── RSVP ── */}
       <div id="rsvp" className="section-transition py-32 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-3xl mx-auto">
           <Reveal className="text-center mb-16">
@@ -856,8 +842,6 @@ export default function App() {
             <h2 className="text-5xl font-thin text-gray-800 italic mb-4">{t.rsvpTitle}</h2>
             <p className="text-gray-500 tracking-widest uppercase text-sm">{t.rsvpDeadline}</p>
           </Reveal>
-
-          {/* Contact cards */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {t.rsvpContacts.map(({ color, title, email, phone }, i) => (
               <Reveal key={title} direction={i === 0 ? 'left' : 'right'} delay={i * 100}>
@@ -872,8 +856,6 @@ export default function App() {
               </Reveal>
             ))}
           </div>
-
-          {/* RSVP Form */}
           <Reveal delay={200}>
             <div className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100">
               <h3 className="text-2xl font-thin text-gray-700 italic text-center mb-8">{t.rsvpOr}</h3>
@@ -888,7 +870,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
+      {/* ── FOOTER ── */}
       <div className="section-transition py-24 px-4 bg-white border-t border-gray-100">
         <div className="max-w-4xl mx-auto text-center space-y-10">
           <Reveal>
