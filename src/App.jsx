@@ -545,7 +545,7 @@ export default function App() {
       <div id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0" style={{ overflow: 'hidden' }}>
           {/* FIX 2: 'centre' typo corrected to 'center', value set to 65% */}
-          <ParallaxImg src={coupleImage} alt="Couple portrait" className="w-full h-[120%] object-cover -mt-[10%]" strength={0.1} style={{ objectPosition: 'center 90%' }} />
+          <ParallaxImg src={coupleImage} alt="Couple portrait" className="w-full h-[120%] object-cover -mt-[10%]" strength={0.1} style={{ objectPosition: 'center 110%' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/45 to-white/60" />
           <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-white/50" />
         </div>
